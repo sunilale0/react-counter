@@ -1,27 +1,44 @@
 import React, {Component} from 'react';
 import './index.css';
+import Greeting from './Greeting';
+
 
 class Counter extends Component{
   constructor(){
     super();
     this.state = {
-      counter: 0
+      counter: 0,
+      tog:'Single Count',
+      togCount: 1
     }
   }
 
   increment =() =>{
     this.setState({
-      counter: this.state.counter + 1
+      counter: this.state.counter + this.state.togCount
     })
   }
 
-  decrement = () =>{
+  decrement = (togCount) =>{
+    
     if(this.state.counter > 0){
     this.setState({
-      
-      counter: this.state.counter-1
+      counter: this.state.counter- this.state.togCount
     })
   }
+  }
+reset = () =>{
+  this.setState({
+    counter: 0
+  })
+}
+  toggle = () =>{
+
+    this.setState({
+      togCount: (this.state.togCount === 1) ? 2 : 1,
+      tog: (this.state.tog === 'Single Count') ? 'Double Count' :'Single Count',
+    })
+    
   }
   render(){
     console.log("this is line number 13", this.state.counter);
@@ -30,8 +47,12 @@ class Counter extends Component{
       <div className="navbar">Counter.JS</div>
       <div className="counter">
       <h1 > {this.state.counter} </h1>
+     
+      <button type="button" onClick={this.reset}>Reset</button>
       <button type="button" onClick= {this.increment} className="buttons">Increment</button>
       <button type="button" onClick = {this.decrement} className="buttons">Decrement</button>
+      <button type="button" onClick ={this.toggle} className ="buttons">{this.state.tog}</button>
+      <Greeting name="React User" value={this.state.counter}/>
       </div>
     </div>
     )
